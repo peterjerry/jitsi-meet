@@ -319,16 +319,9 @@ class JitsiMeetExternalAPI extends EventEmitter {
      * @returns {void}
      */
     dispose() {
-        const frame = document.getElementById(this.frameName);
-
         this.postis.destroy();
-        if (frame) {
-            frame.src = 'about:blank';
-        }
-        window.setTimeout(() => {
-            this.iframeHolder.removeChild(this.frame);
-            this.iframeHolder.parentNode.removeChild(this.iframeHolder);
-        }, 10);
+        this.removeAllListeners();
+        this.iframeHolder.parentNode.removeChild(this.iframeHolder);
     }
 
     /**
@@ -398,7 +391,7 @@ class JitsiMeetExternalAPI extends EventEmitter {
      * NOTE: This method is not removed for backward comatability purposes.
      */
     removeEventListener(event) {
-        this.removeListeners(event);
+        this.removeAllListeners(event);
     }
 
     /**
